@@ -1,40 +1,60 @@
+---
+import Nav from '../components/Nav.astro';
+import Hero from '../sections/Hero.astro';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
+
+		<link rel="stylesheet" href="https://use.typekit.net/qfz1dzj.css" />
 		<link rel="icon" type="image/png" href="/monogram.png" />
 		<link rel="icon" type="image/svg+xml" href="/monogram.svg" />
+
 		<meta name="generator" content={Astro.generator} />
+
 		<title>By the Sea Massage Therapy</title>
 	</head>
 	<body>
-		<main>Hello!</main>
+		<main>
+			<Nav />
+			<Hero />
+		</main>
 	</body>
 </html>
 
 <style is:global>
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
+		--accent-400: #7eb3bf;
+		--accent-500: #6393a6;
+		--bg-50: #fffbf7;
+		--bg-100: #f1ede9;
+		--bg-200: #ded6cf;
+		--bg-300: #c7bbae;
+		--bg-400: #a7998b;
+		--bg-500: #9b8f82;
+		--bg-600: #7d7164;
+		--bg-700: #635a4f;
+		--bg-800: #4f4a45;
+		--bg-900: #44403c;
+		--bg-1000: #312e2b;
 	}
-
 	html {
 		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
+		color: var(--bg-700);
 	}
 
+	html,
+	body,
 	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
+		height: 100%;
+	}
+	section,
+	nav {
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 </style>

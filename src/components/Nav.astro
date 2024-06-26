@@ -2,7 +2,7 @@
 import MenuButton from './MenuButton.astro';
 ---
 
-<nav class="absolute z-20 flex w-full items-center justify-between px-8 py-10 text-lg xl:px-12">
+<nav class="fixed top-0 z-20 flex w-full items-center justify-between px-8 py-10 text-lg xl:px-12">
 	<button
 		><svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -21,30 +21,91 @@ import MenuButton from './MenuButton.astro';
 	</button>
 
 	<div class="hidden items-center xl:flex">
-		<button class="nav-button-sec">Welcome</button>
-		<button class="nav-button-sec">About</button>
-		<button class="nav-button-sec">Services</button>
+		<div id="slider-container" class="">
+			<button class="nav-item selected">Welcome</button>
+			<button class="nav-item">About</button>
+			<button class="nav-item">Services</button>
+			<hr id="slide" />
+		</div>
 
-		<button class="nav-button-pri border-bg-400 ml-8 border px-8 py-3">Book Now</button>
+		<button id="primary-btn">Book Now</button>
 	</div>
 	<div class="xl:hidden">
 		<MenuButton />
 	</div>
 </nav>
 
-<style scoped>
+<style>
 	nav {
 		font-family: 'orpheuspro', serif;
 		font-weight: 400;
 		font-style: normal;
 	}
-	.nav-button-sec {
-		padding: 0.75rem 2rem 0.75rem 2rem;
-	}
-	button {
+	.nav-item {
+		padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+		transition: all 0.1s ease-in-out;
 		color: var(--bg-700);
 	}
-	button:hover {
+	.nav-item:hover {
+		color: var(--bg-600);
+	}
+	.selected {
+		color: var(--bg-600) !important;
+	}
+	#slide {
+		height: 0.1rem;
+		margin: 0;
+		background: var(--bg-400);
+		border: none;
+		transition: 0.5s ease-in-out;
+		display: block;
+	}
+	#primary-btn {
+		margin-left: 4rem;
+		background-color: hsl(28, 19%, 84%, 0.5);
+		/* background: var(--bg-300); */
+		padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+		border: 1px solid var(--bg-300);
+		transition: all 0.15s ease-in;
+	}
+	#primary-btn:hover {
+		background: #c7bbae50;
 		color: var(--bg-800);
 	}
 </style>
+
+<script>
+	function setSlide() {
+		let menu = document.getElementById('slider-container');
+		const slide = document.getElementById('slide');
+		if (!menu || !slide) return;
+
+		const navItems = Array.from(menu.getElementsByClassName('nav-item')) as HTMLElement[];
+		if (!navItems || navItems?.length === 0) return;
+
+		slide.style.width = navItems[0].offsetWidth + 'px';
+
+		navItems.forEach((navItem) => {
+			const currentItemIndex = navItems.indexOf(navItem);
+
+			navItem.onclick = () => {
+				navItem.classList.add('selected');
+				navItems.forEach((item, index) => {
+					if (index !== currentItemIndex) item.classList.remove('selected');
+				});
+
+				slide.style.width = navItem.offsetWidth + 'px';
+
+				const marginLeft = navItems.reduce((acc, item, index) => {
+					// Not sure why the 4.5 is needed here
+					if (index < currentItemIndex) return acc + item.offsetWidth + 4.5;
+					return acc;
+				}, 0);
+
+				slide.style.marginLeft = marginLeft + 'px';
+			};
+		});
+	}
+
+	setSlide();
+</script>

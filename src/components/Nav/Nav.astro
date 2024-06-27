@@ -1,5 +1,5 @@
 ---
-import MenuButton from './MenuButton.astro';
+import MenuButton from '../MenuButton.astro';
 ---
 
 <nav class="fixed top-0 z-20 flex w-full items-center justify-between px-8 py-10 text-lg xl:px-12">
@@ -21,15 +21,18 @@ import MenuButton from './MenuButton.astro';
 	</button>
 
 	<div class="hidden items-center xl:flex">
-		<div id="slider-container" class="">
+		<div id="slider-container">
 			<button class="nav-item selected">Welcome</button>
 			<button class="nav-item">About</button>
 			<button class="nav-item">Services</button>
 			<hr id="slide" />
 		</div>
 
-		<button id="primary-btn">Book Now</button>
+		<button id="primary-btn" class="border-effect">
+			<span>Book Now</span>
+		</button>
 	</div>
+
 	<div class="xl:hidden">
 		<MenuButton />
 	</div>
@@ -44,13 +47,13 @@ import MenuButton from './MenuButton.astro';
 	.nav-item {
 		padding: 0.75rem 1.5rem 0.75rem 1.5rem;
 		transition: all 0.1s ease-in-out;
-		color: var(--bg-700);
+		color: var(--bg-800);
 	}
 	.nav-item:hover {
-		color: var(--bg-600);
+		color: var(--bg-700);
 	}
 	.selected {
-		color: var(--bg-600) !important;
+		color: var(--bg-700) !important;
 	}
 	#slide {
 		height: 0.1rem;
@@ -60,64 +63,96 @@ import MenuButton from './MenuButton.astro';
 		transition: 0.5s ease-in-out;
 		display: block;
 	}
+
 	#primary-btn {
 		margin-left: 4rem;
-		background-color: hsl(28, 19%, 84%, 0.5);
-		/* background: var(--bg-300); */
-		padding: 0.75rem 1.5rem 0.75rem 1.5rem;
-		border: 1px solid var(--bg-300);
+		background: hsl(28, 19%, 87%, 0.5);
+		border: 1px solid var(--bg-400);
 		transition: all 0.15s ease-in;
-	}
-	#primary-btn:hover {
-		background: #c7bbae50;
+		display: inline-block;
+		position: relative;
 		color: var(--bg-800);
+	}
+	#primary-btn span {
+		display: block;
+		padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+		transition: all 0.5s ease-in-out;
+	}
+	#primary-btn span:hover {
+		background: hsl(28, 25%, 93%, 0.5);
+		color: var(--bg-900);
+	}
+
+	:root {
+		--border-effect-color: var(--bg-500);
+		--border-effect-thickness: 1px;
+	}
+
+	.border-effect::before,
+	.border-effect::after,
+	.border-effect span::before,
+	.border-effect span::after {
+		content: '';
+		position: absolute;
+		transition: all 0.2s linear;
+	}
+
+	.border-effect::before,
+	.border-effect::after {
+		height: var(--border-effect-thickness);
+		background: var(--border-effect-color);
+		width: 0;
+	}
+	.border-effect span::before,
+	.border-effect span::after {
+		width: var(--border-effect-thickness);
+		background: var(--border-effect-color);
+		height: 0;
+	}
+	.border-effect:hover::before,
+	.border-effect:hover::after {
+		width: 100%;
+	}
+	.border-effect:hover span::before,
+	.border-effect:hover span::after {
+		height: 100%;
+	}
+	.border-effect::after {
+		left: 0;
+		bottom: 0;
+		transition-delay: 0.6s;
+	}
+	.border-effect span::after {
+		transition-delay: 0.4s;
+		right: 0;
+		bottom: 0;
+	}
+	.border-effect::before {
+		right: 0;
+		top: 0;
+		transition-delay: 0.2s;
+	}
+	.border-effect span::before {
+		transition-delay: 0s;
+		left: 0;
+		top: 0;
+	}
+	.border-effect:hover::after {
+		transition-delay: 0s;
+	}
+	.border-effect:hover span::after {
+		transition-delay: 0.2s;
+	}
+	.border-effect:hover::before {
+		transition-delay: 0.4s;
+	}
+	.border-effect:hover span::before {
+		transition-delay: 0.6s;
 	}
 </style>
 
 <script>
-	function setup() {
-		const slide = document.getElementById('slide');
-		const primaryBtn = document.getElementById('primary-btn');
-		const navItems = Array.from(document.getElementsByClassName('nav-item')) as HTMLElement[];
-		const logoBtn = document.getElementById('logo-btn');
+	import setupNav from './setupNav';
 
-		if (!slide || !primaryBtn || !navItems || navItems?.length === 0 || !logoBtn) return;
-
-		slide.style.width = navItems[0].offsetWidth + 'px';
-
-		navItems.forEach((navItem) => {
-			const currentItemIndex = navItems.indexOf(navItem);
-
-			navItem.onmousedown = () => {
-				navItem.classList.add('selected');
-				navItems.forEach((item, i) => {
-					if (i !== currentItemIndex) item.classList.remove('selected');
-				});
-
-				slide.style.width = navItem.offsetWidth + 'px';
-
-				const marginLeft = navItems.reduce((acc, item, i) => {
-					// Not sure why the 4.5 is needed here
-					if (i < currentItemIndex) return acc + item.offsetWidth + 4.5;
-					return acc;
-				}, 0);
-
-				slide.style.marginLeft = marginLeft + 'px';
-			};
-		});
-
-		logoBtn.onmousedown = () => {
-			navItems.forEach((item) => item.classList.remove('selected'));
-			navItems[0].classList.add('selected');
-			slide.style.width = navItems[0].offsetWidth + 'px';
-			slide.style.marginLeft = '0';
-		};
-
-		primaryBtn.onmousedown = () => {
-			navItems.forEach((item) => item.classList.remove('selected'));
-			slide.style.width = '0';
-		};
-	}
-
-	setup();
+	setupNav();
 </script>

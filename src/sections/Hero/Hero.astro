@@ -7,15 +7,24 @@ import { Image } from 'astro:assets';
 		<Image
 			src="/src/assets/images/sand.webp"
 			alt="sand background"
-			class="absolute z-0 h-full w-full object-cover opacity-[0.05]"
+			class="absolute z-0 h-full w-full object-cover opacity-[0.06]"
 			width={1443}
 			height={962}
 			loading="eager"
 		/>
 	</div>
-	<h1 id="hero-text" class="w-[310px] text-[38px]/[52px] md:w-[530px] md:text-[44px]/[58px] xl:text-[50px]/[66px]">
+	<h1 id="hero-text" class="w-[310px] text-[38px]/[52px] md:w-[535px] md:text-[44px]/[58px] xl:text-[50px]/[66px]">
 		Enter a haven of
-		<span class="text-highlight">relaxation,</span>
+		<span id="highlight" class="inline-block">
+			<span class="word word-1">
+				<span>r</span><span>e</span><span>l</span><span>a</span><span>x</span><span>a</span><span>t</span><span>i</span
+				><span>o</span><span>n</span><span>,</span></span
+			>
+			<!-- <span class="word word-2 opacity-0">
+				<span>r</span><span>e</span><span>j</span><span>u</span><span>v</span><span>e</span><span>n</span><span>a</span
+				><span>t</span><span>i</span><span>o</span><span>n</span>
+			</span> -->
+		</span><br />
 		just a stroll from the sand.
 	</h1>
 </section>
@@ -23,6 +32,7 @@ import { Image } from 'astro:assets';
 <style>
 	section {
 		position: relative;
+		backface-visibility: hidden;
 	}
 
 	#hero-text {
@@ -44,8 +54,9 @@ import { Image } from 'astro:assets';
 		position: absolute;
 		background: linear-gradient(0deg, white, hsla(31.2, 11.1%, 55.9%, 0.25));
 	}
-	.text-highlight {
+	#highlight {
 		font-style: italic;
+		/* color: var(--accent-500); */
 		background: linear-gradient(to right, var(--accent-500), var(--accent-400));
 		-webkit-text-fill-color: transparent;
 		-webkit-background-clip: text;
@@ -71,8 +82,51 @@ import { Image } from 'astro:assets';
 	}
 </style>
 
+<style lang="scss">
+	.word span {
+		display: inline-block;
+		// Doesnt work with the text gradient
+		// animation-name: smoky;
+		animation-duration: 2.5s;
+		animation-delay: 3s;
+		animation-fill-mode: both;
+		animation-timing-function: ease-in-out;
+	}
+
+	.word:nth-child(even) {
+		// animation-name: smoky-mirror;
+	}
+
+	@keyframes smoky {
+		60% {
+			text-shadow: 0 0 40px darkgrey;
+		}
+		to {
+			transform: translate3d(15rem, -8rem, 0) rotate(-40deg) skewX(70deg) scale(1.5);
+			text-shadow: 0 0 20px darkgrey;
+			opacity: 0;
+		}
+	}
+
+	@keyframes smoky-mirror {
+		60% {
+			text-shadow: 0 0 40px darkgrey;
+		}
+		to {
+			transform: translate3d(18rem, -8rem, 0) rotate(-40deg) skewX(-70deg) scale(2);
+			text-shadow: 0 0 20px darkgrey;
+			opacity: 0;
+		}
+	}
+
+	@for $item from 1 through 21 {
+		.word span:nth-of-type(#{$item}) {
+			animation-delay: #{(3 + (calc($item / 10)))}s;
+		}
+	}
+</style>
+
 <script>
 	import loadHero from './loadHero';
-
-	loadHero();
+	document.addEventListener('DOMContentLoaded', loadHero);
 </script>

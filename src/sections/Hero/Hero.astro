@@ -13,12 +13,9 @@ import { Image } from 'astro:assets';
 			loading="eager"
 		/>
 	</div>
-	<div></div>
-	<h1
-		class="hero-text z-10 w-[310px] text-center text-[38px]/[52px] text-bg-700 md:w-[530px] md:text-[44px]/[58px] xl:text-[50px]/[66px]"
-	>
+	<h1 id="hero-text" class="w-[310px] text-[38px]/[52px] md:w-[530px] md:text-[44px]/[58px] xl:text-[50px]/[66px]">
 		Enter a haven of
-		<span class="hero-text-highlight">relaxation,</span>
+		<span class="text-highlight">relaxation,</span>
 		just a stroll from the sand.
 	</h1>
 </section>
@@ -26,7 +23,16 @@ import { Image } from 'astro:assets';
 <style>
 	section {
 		position: relative;
-		/* background: linear-gradient(to bottom, var(--bg-200), white); */
+	}
+
+	#hero-text {
+		z-index: 10;
+		display: block;
+		text-align: center;
+		color: var(--bg-700);
+		font-family: 'orpheuspro', serif;
+		box-sizing: content-box;
+		opacity: 0;
 	}
 
 	.overlay::before {
@@ -38,16 +44,35 @@ import { Image } from 'astro:assets';
 		position: absolute;
 		background: linear-gradient(0deg, white, hsla(31.2, 11.1%, 55.9%, 0.25));
 	}
-
-	.hero-text {
-		font-family: 'orpheuspro', serif;
-		font-weight: 400;
-		font-style: normal;
-	}
-	.hero-text-highlight {
+	.text-highlight {
 		font-style: italic;
 		background: linear-gradient(to right, var(--accent-500), var(--accent-400));
 		-webkit-text-fill-color: transparent;
 		-webkit-background-clip: text;
 	}
+
+	.reveal {
+		animation-duration: 2s;
+		animation-fill-mode: both;
+		animation-delay: 0.25s;
+		animation-name: fadeInLeft;
+		opacity: 1;
+	}
+
+	@keyframes fadeInLeft {
+		0% {
+			opacity: 0;
+			transform: translateX(-40px);
+		}
+		100% {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
 </style>
+
+<script>
+	import loadHero from './loadHero';
+
+	loadHero();
+</script>

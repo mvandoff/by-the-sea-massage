@@ -1,10 +1,13 @@
 function setupNav() {
+	const nav = document.getElementById('nav');
 	const slide = document.getElementById('slide');
 	const primaryBtn = document.getElementById('primary-btn');
 	const navItems = Array.from(document.getElementsByClassName('nav-item')) as HTMLElement[];
 	const logoBtn = document.getElementById('logo-btn');
 
-	if (!slide || !primaryBtn || !navItems || navItems?.length === 0 || !logoBtn) return;
+	if (!nav || !slide || !primaryBtn || !navItems || navItems?.length === 0 || !logoBtn) return;
+
+	nav.classList.add('reveal');
 
 	slide.style.width = navItems[0].offsetWidth + 'px';
 

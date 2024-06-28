@@ -2,7 +2,7 @@
 import MenuButton from '../MenuButton.astro';
 ---
 
-<nav class="fixed top-0 z-20 flex w-full items-center justify-between px-8 py-10 text-lg xl:px-12">
+<nav id="nav" class="fixed top-0 z-20 flex w-full items-center justify-between px-8 py-10 text-lg opacity-0 xl:px-12">
 	<button id="logo-btn"
 		><svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -149,10 +149,28 @@ import MenuButton from '../MenuButton.astro';
 	.border-effect:hover span::before {
 		transition-delay: 0.6s;
 	}
+	.reveal {
+		animation-duration: 2s;
+		animation-fill-mode: both;
+		animation-delay: 1s;
+		animation-name: fadeInTop;
+		opacity: 1;
+	}
+
+	@keyframes fadeInTop {
+		0% {
+			opacity: 0;
+			transform: translateY(-40px);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
 </style>
 
 <script>
-	import setupNav from './setupNav';
+	import loadNav from './loadNav';
 
-	setupNav();
+	loadNav();
 </script>

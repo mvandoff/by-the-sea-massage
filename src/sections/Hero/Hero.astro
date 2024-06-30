@@ -16,15 +16,8 @@ import { Image } from 'astro:assets';
 	<h1 id="hero-text" class="w-[310px] text-[38px]/[52px] md:w-[535px] md:text-[44px]/[58px] xl:text-[50px]/[66px]">
 		Enter a haven of
 		<span id="highlight" class="inline-block">
-			<span class="word word-1">
-				<span>r</span><span>e</span><span>l</span><span>a</span><span>x</span><span>a</span><span>t</span><span>i</span
-				><span>o</span><span>n</span><span>,</span></span
-			>
-			<!-- <span class="word word-2 opacity-0">
-				<span>r</span><span>e</span><span>j</span><span>u</span><span>v</span><span>e</span><span>n</span><span>a</span
-				><span>t</span><span>i</span><span>o</span><span>n</span>
-			</span> -->
-		</span><br />
+			<span class="word word-1"> relaxation, </span>
+		</span>
 		just a stroll from the sand.
 	</h1>
 </section>
@@ -82,7 +75,7 @@ import { Image } from 'astro:assets';
 	}
 </style>
 
-<style lang="scss">
+<!-- <style lang="scss">
 	.word span {
 		display: inline-block;
 		// Doesnt work with the text gradient
@@ -124,7 +117,7 @@ import { Image } from 'astro:assets';
 			animation-delay: #{(3 + (calc($item / 10)))}s;
 		}
 	}
-</style>
+</style> -->
 
 <script>
 	import loadHero from './loadHero';

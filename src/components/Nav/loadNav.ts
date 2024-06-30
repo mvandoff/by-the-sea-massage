@@ -1,3 +1,5 @@
+import loadMenuButton from '../MenuButton/loadMenuButton';
+
 function setupNav() {
 	const nav = document.getElementById('nav');
 	const slide = document.getElementById('slide');
@@ -43,6 +45,8 @@ function setupNav() {
 		navItems.forEach((item) => item.classList.remove('selected'));
 		slide.style.width = '0';
 	};
+
+	loadMenuButton();
 }
 
 export default setupNav;

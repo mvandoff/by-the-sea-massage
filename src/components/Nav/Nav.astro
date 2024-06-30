@@ -1,5 +1,5 @@
 ---
-import MenuButton from '../MenuButton.astro';
+import MenuButton from '../MenuButton/MenuButton.astro';
 ---
 
 <nav id="nav" class="fixed top-0 z-20 flex w-full items-center justify-between px-8 py-10 text-lg opacity-0 xl:px-12">
@@ -66,7 +66,7 @@ import MenuButton from '../MenuButton.astro';
 
 	#primary-btn {
 		margin-left: 4rem;
-		background: hsl(28, 19%, 87%, 0.5);
+		background: hsl(28, 15%, 95%, 0.2);
 		border: 1px solid var(--bg-400);
 		transition: all 0.15s ease-in;
 		display: inline-block;
@@ -77,10 +77,13 @@ import MenuButton from '../MenuButton.astro';
 		display: block;
 		padding: 0.75rem 1.5rem 0.75rem 1.5rem;
 		transition: all 0.5s ease-in-out;
+		backdrop-filter: blur(4px);
+		mix-blend-mode: color-burn;
 	}
 	#primary-btn span:hover {
-		background: hsl(28, 25%, 93%, 0.5);
+		background: hsl(28, 25%, 95%, 0.6);
 		color: var(--bg-900);
+		backdrop-filter: blur(0px);
 	}
 
 	:root {

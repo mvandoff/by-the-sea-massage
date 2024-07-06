@@ -5,7 +5,15 @@ function loadMenuButton() {
 	if (!dialogElem || !showBtn) return;
 
 	showBtn.addEventListener('mousedown', () => {
-		dialogElem.showModal();
+		if (showBtn.classList.contains('open')) {
+			// dialogElem.close();
+			showBtn.classList.remove('open');
+			showBtn.classList.add('closed');
+		} else {
+			// dialogElem.showModal();
+			showBtn.classList.remove('closed');
+			showBtn.classList.add('open');
+		}
 	});
 }
 
